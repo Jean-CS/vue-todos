@@ -1,57 +1,21 @@
 <template>
   <div id="app">
     <Header />
-    <img alt="Vue logo" src="./assets/logo.png">
-    <AddTodo v-on:add-todo="addTodo"/>
-    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo"/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
-import Header from './components/layout/Header';
-import Todos from './components/Todos';
-import AddTodo from './components/AddTodo';
-
-const apiUrl = 'https://jsonplaceholder.typicode.com/todos';
+import Header from './components/layout/Header'
 
 export default {
   name: "app",
   components: {
     Header,
-    Todos,
-    AddTodo,
-  },
-  data() {
-    return {
-      todos: []
-    }
-  },
-  methods: {
-    deleteTodo(id) {
-      axios.delete(`${apiUrl}/${id}`)
-           .then(res => this.todos = this.todos.filter(todo => todo.id !== id))
-           .catch(err => console.log(err));
-    },
-    addTodo({ id, title, completed }) {
-      axios.post(apiUrl, { title, completed })
-           .then(res => this.todos = [...this.todos, { id, title, completed }] )
-           .catch(err => console.log(err));
-    }
-  },
-  // Similar to componentDidMount() in React
-  created() {
-    axios.get(apiUrl, {
-      params: {
-        _limit: 5
-      }
-    })
-    .then(res => this.todos = res.data)
-    .catch(err => console.log(err))
   }
-};
+}
 </script>
+
 
 <!-- This is a global style -->
 <style>
