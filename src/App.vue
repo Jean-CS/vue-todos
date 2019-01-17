@@ -14,6 +14,8 @@ import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
 
+const apiUrl = 'https://jsonplaceholder.typicode.com/todos';
+
 export default {
   name: "app",
   components: {
@@ -28,15 +30,19 @@ export default {
   },
   methods: {
     deleteTodo(id) {
-      this.todos = this.todos.filter(todo => todo.id !== id)
+      axios.delete(`${apiUrl}/${id}`)
+           .then(res => this.todos = this.todos.filter(todo => todo.id !== id))
+           .catch(err => console.log(err));
     },
-    addTodo(newTodo) {
-      this.todos = [...this.todos, newTodo];
+    addTodo({ id, title, completed }) {
+      axios.post(apiUrl, { title, completed })
+           .then(res => this.todos = [...this.todos, { id, title, completed }] )
+           .catch(err => console.log(err));
     }
   },
   // Similar to componentDidMount() in React
   created() {
-    axios.get('https://jsonplaceholder.typicode.com/todos', {
+    axios.get(apiUrl, {
       params: {
         _limit: 5
       }
