@@ -1,6 +1,6 @@
 v-bind:object
 v-bind:class
-
+v-on:change
 
 
 # vue_todos
