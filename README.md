@@ -1,3 +1,8 @@
+v-bind:object
+v-bind:class
+
+
+
 # vue_todos
 
 ## Project setup
