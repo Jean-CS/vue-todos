@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <img alt="Vue logo" src="./assets/logo.png">
-    <AddTodo />
+    <AddTodo v-on:add-todo="addTodo"/>
     <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo"/>
   </div>
 </template>
@@ -43,6 +43,9 @@ export default {
   methods: {
     deleteTodo(id) {
       this.todos = this.todos.filter(todo => todo.id !== id)
+    },
+    addTodo(newTodo) {
+      this.todos = [...this.todos, newTodo];
     }
   }
 };
@@ -78,6 +81,6 @@ body {
 }
 
 .btn:hover {
-  background: #666;
+  background: #666; 
 }
 </style>
